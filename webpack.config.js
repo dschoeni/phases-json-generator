@@ -6,6 +6,7 @@ var autoprefixer = require('autoprefixer');
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var { BaseHrefWebpackPlugin } = require('base-href-webpack-plugin')
 
 var ENV = process.env.npm_lifecycle_event;
 var isProd = ENV === 'build';
@@ -98,7 +99,8 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.LoaderOptionsPlugin(
       { minimize: true }
     ),
-    new CopyWebpackPlugin([{ from: './src/assets' }])
+    new CopyWebpackPlugin([{ from: './src/assets' }]),
+    new BaseHrefWebpackPlugin({ baseHref: '/phases-json-generator' })
   ])
 } else {
   module.exports.plugins = (module.exports.plugins || []).concat([
